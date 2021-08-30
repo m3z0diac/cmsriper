@@ -1,11 +1,7 @@
 import requests
 import os
-import time
 from config_file import ConfigFile
 import optparse
-import socket
-from queue import Queue
-import threading
 import time
 
 
@@ -79,67 +75,4 @@ def getCMSResults(url,verbose=False):
             for i in range(len(sinfos)):
                 print(f"{sinfos[i]['network']} ==> {sinfos[i]['url']}")
 
-
-
-options = getArg()
-input_file = options.url
-queue =Queue()
-open_ports = []
-
-
-def scan(port):
-    '''
-    creat a socket and try to make connection with target ip
-    '''
-    try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((options.url, port))
-        return True
-
-    except:
-        return False
-
-def fill_queque(port_list):
-    '''
-    fill the queue, (put all ports in stack)
-    '''
-    for port in port_list:
-        queue.put(port)
-
-def worker():
-    '''
-    scan an IP or a Host for get all open ports
-    '''
-    while not queue.empty():
-        port = queue.get()
-        if scan(port):
-            service = socket.getservbyport(port)
-
-            print(f"[+] port {port} is open! ---service {service}")
-            open_ports.append(port)
-
-def final_port_scan():
-    print(f"\n-------{options.url} Ports Scanning-------\n")
-    port_list = range(1, 1024)
-    fill_queque(port_list)
-
-    thread_list = []
-
-    for t in range(50):
-        thread = threading.Thread(target=worker)
-        thread_list.append(thread)
-
-    for thread in thread_list:
-        thread.start()
-
-    for thread in thread_list:
-        thread.join()
-
-    print("open ports are: ", open_ports)
-
 getCMSResults(input_file)
-s = input(f"\nDo you wanna scann {input_file} Ports(y/n)? ")
-if s == 'y':
-    final_port_scan()
-else:
-    print("cancel port scanning and exit!")
