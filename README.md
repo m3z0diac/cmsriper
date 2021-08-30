@@ -2,7 +2,7 @@
 
 # __🦅About__
 
-cms riper is a project of HK-HANG contain some services for pentesting such as this one, this script is targeting the cms's for geting informations such as cms name, databases, programming lang, server, social media links, port scanning and more in next versions.
+cms riper is a project of HK-HANG contain some services for pentesting such as this one, this script is targeting the cms's for geting informations such as cms name, databases, programming lang, server, social media links and more in next versions.
 
 # __🦅How To Use cmsriper__
 
