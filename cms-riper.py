@@ -75,4 +75,8 @@ def getCMSResults(url,verbose=False):
             for i in range(len(sinfos)):
                 print(f"{sinfos[i]['network']} ==> {sinfos[i]['url']}")
 
+
+options = getArg()
+input_file = options.url
+
 getCMSResults(input_file)
